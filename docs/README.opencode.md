@@ -292,6 +292,37 @@ Skills written for Claude Code are automatically adapted for OpenCode. The boots
 
 Skills are discovered by OpenCode's native skill system. Each skill has a `SKILL.md` file with YAML frontmatter.
 
+## MCP Servers
+
+Superpower-ECC pairs its skills with MCP servers for the local tools you have installed. A ready-to-copy OpenCode config is in `mcp-configs/opencode-mcp.example.jsonc`.
+
+Servers wired for this project (each serves a matching skill family):
+
+| Server | Command | Backs up |
+|--------|---------|----------|
+| `uv` | `uvx uv-mcp` | Python/uv dependency work (`python-patterns`) |
+| `github` | `github-mcp-server stdio` | GitHub workflows (`github-actions-hardened`) |
+| `sqlite` | `npx mcp-sqlite <db>` | Local analytics (`clickhouse-io`, `postgres-patterns`) |
+| `playwright` | `npx @playwright/mcp` | E2E/browser testing (`playwright-skill`) |
+| `dart` | `dart mcp-server` | Dart + Flutter dev (`dart-patterns`, `flutter-patterns`) |
+| `msbuild` | `uvx msbuild-mcp-server` | .NET/MSBuild builds (`msbuild-*` skills) |
+| `binlog` | `dotnet tool binlog-mcp` | Build failure/performance diagnosis (`binlog-*` skills) |
+
+### Windows path notes
+
+OpenCode spawns local MCP servers directly, so the `command[0]` must be a real executable path, not a PATH-resolved `npx`/`uvx` name (Windows resolves the `.cmd` shim only when given the full path — e.g. `C:\Program Files\nodejs\npx.cmd`). The example config ships with `.exe`/`.cmd` paths you must adjust to your machine.
+
+### One-time installs
+
+- `github-mcp-server`: download the `github-mcp-server_Windows_x86_64.zip` release and extract `github-mcp-server.exe`. v1.8+ has baked-in OAuth — no PAT needed; for a PAT set the `GITHUB_PERSONAL_ACCESS_TOKEN` environment entry.
+- Playwright: run `npx playwright install chromium` once (~150 MB).
+- FastMCP servers (`uvmcp`, `msbuild-mcp-server`) are pulled automatically by `uvx` on first launch.
+- Binlog: `dotnet tool install -g Microsoft.AITools.BinlogMcp`; requires .NET SDK.
+
+### Remote (HTTP) servers
+
+For HTTP MCP servers configure them in OpenCode as `{"type": "remote", "url": "...", "headers": {}}`. See `mcp-configs/mcp-servers.json` for the Claude-format equivalents (github, firecrawl, supabase, cloudflare, clickhouse).
+
 ## Updating
 
 ```bash

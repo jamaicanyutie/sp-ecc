@@ -1,0 +1,64 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comments": {
+    "usage": "Copy the servers you need into your opencode config (~/.config/opencode/opencode.jsonc or project opencode.json).",
+    "placeholders": "Replace <USERNAME>, <GITHUB_MCP_DIR> and <SQLITE_DIR> with your actual paths. Use real paths (not .ps1/.cmd-in-PATH names) so OpenCode can spawn the servers on Windows.",
+    "github_auth": "github-mcp-server >= 1.8 uses baked-in OAuth (no PAT needed). For a PAT instead, add \"environment\": { \"GITHUB_PERSONAL_ACCESS_TOKEN\": \"<token>\" } to the github entry.",
+    "playwright_install": "First run: npx playwright install chromium (~150 MB) to download the browser.",
+    "context_warning": "Each server adds tool definitions to context; enable only what you use."
+  },
+  "mcp": {
+    "uv": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\<USERNAME>\\.local\\bin\\uvx.exe",
+        "uv-mcp"
+      ]
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\<USERNAME>\\<GITHUB_MCP_DIR>\\github-mcp-server.exe",
+        "stdio"
+      ]
+    },
+    "sqlite": {
+      "type": "local",
+      "command": [
+        "C:\\Program Files\\nodejs\\npx.cmd",
+        "-y",
+        "mcp-sqlite",
+        "C:\\Users\\<USERNAME>\\<SQLITE_DIR>\\main.db",
+        "read,utility"
+      ]
+    },
+    "playwright": {
+      "type": "local",
+      "command": [
+        "C:\\Program Files\\nodejs\\npx.cmd",
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "dart": {
+      "type": "local",
+      "command": [
+        "C:\\<FLUTTER_SDK_DIR>\\flutter\\bin\\dart.bat",
+        "mcp-server"
+      ]
+    },
+    "msbuild": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\<USERNAME>\\.local\\bin\\uvx.exe",
+        "msbuild-mcp-server@latest"
+      ]
+    },
+    "binlog": {
+      "type": "local",
+      "command": [
+        "C:\\Users\\<USERNAME>\\.dotnet\\tools\\binlog-mcp.exe"
+      ]
+    }
+  }
+}
