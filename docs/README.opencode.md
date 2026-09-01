@@ -4,6 +4,28 @@ Complete guide for using Superpower-ECC with [OpenCode.ai](https://opencode.ai).
 
 ## Quick Install
 
+### One-line install
+
+**macOS / Linux / WSL:**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/jamaicanyutie/sp-ecc/master/scripts/install.sh | bash
+```
+
+**Windows (PowerShell):**
+
+```powershell
+irm https://raw.githubusercontent.com/jamaicanyutie/sp-ecc/master/scripts/install.ps1 | iex
+```
+
+**Windows (Command Prompt):**
+
+```cmd
+curl https://raw.githubusercontent.com/jamaicanyutie/sp-ecc/master/scripts/install.cmd -o %TEMP%\sp-ecc-install.cmd && %TEMP%\sp-ecc-install.cmd
+```
+
+### Manual install
+
 Tell OpenCode:
 
 ```
